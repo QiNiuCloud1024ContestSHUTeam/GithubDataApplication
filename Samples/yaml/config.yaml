@@ -1,0 +1,13 @@
+defaults: 
+  adapter: postgres
+  host: localhost
+ 
+development: 
+  databases: myapp_deveploment
+  adapter: postgres
+  host: localhost
+
+test:
+  databases: myapp_test
+  adapter: postgres
+  host: localhost
