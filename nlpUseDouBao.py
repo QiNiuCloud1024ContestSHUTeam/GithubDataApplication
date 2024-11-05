@@ -13,8 +13,7 @@ config = read_config()
 authorization = config['doubaoAPI']['Headers']['Authorization']
 model = config['doubaoAPI']['Body']['model']
 role1 = config['doubaoAPI']['Body']['messages']['role1']
-content1 = config['doubaoAPI']['Body']['messages']['content1']
-role2 = config['doubaoAPI']['Body']['messages']['role2']
+content1 = config['doubaoAPI']['Body']['messages']['content1']ad
 
 client = Ark(
     api_key=authorization,
