@@ -9,8 +9,8 @@ import grpc
 def call_calc_func(num1, num2):
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = calc_pb2_grpc.CalcServiceStub(channel)
-        request = calc_pb2.CalcReq(num1=num1, num2=num2)
-        response = stub.Multiply(request)
+        request = calc_pb2.CalcReq(a=num1, b=num2)
+        response = stub.calc(request)
         return response.result
     
 if __name__=="__main__":

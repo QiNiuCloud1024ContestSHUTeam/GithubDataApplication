@@ -34,8 +34,8 @@ class CalcServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Multiply = channel.unary_unary(
-                '/calc.CalcService/Multiply',
+        self.calc = channel.unary_unary(
+                '/calculator.CalcService/calc',
                 request_serializer=calc__pb2.CalcReq.SerializeToString,
                 response_deserializer=calc__pb2.CalcRsp.FromString,
                 _registered_method=True)
@@ -44,7 +44,7 @@ class CalcServiceStub(object):
 class CalcServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Multiply(self, request, context):
+    def calc(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -53,16 +53,16 @@ class CalcServiceServicer(object):
 
 def add_CalcServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Multiply': grpc.unary_unary_rpc_method_handler(
-                    servicer.Multiply,
+            'calc': grpc.unary_unary_rpc_method_handler(
+                    servicer.calc,
                     request_deserializer=calc__pb2.CalcReq.FromString,
                     response_serializer=calc__pb2.CalcRsp.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'calc.CalcService', rpc_method_handlers)
+            'calculator.CalcService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('calc.CalcService', rpc_method_handlers)
+    server.add_registered_method_handlers('calculator.CalcService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -70,7 +70,7 @@ class CalcService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Multiply(request,
+    def calc(request,
             target,
             options=(),
             channel_credentials=None,
@@ -83,7 +83,7 @@ class CalcService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/calc.CalcService/Multiply',
+            '/calculator.CalcService/calc',
             calc__pb2.CalcReq.SerializeToString,
             calc__pb2.CalcRsp.FromString,
             options,

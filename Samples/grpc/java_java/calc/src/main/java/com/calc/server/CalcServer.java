@@ -10,7 +10,6 @@ public class CalcServer {
                 .addService(new CalcServiceImpl())
                 .build();
         server.start();
-        server.awaitTermination();
         System.out.println("server started, listening on port 50051");
         server.awaitTermination();
     }

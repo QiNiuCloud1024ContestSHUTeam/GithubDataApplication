@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package calc;
+package calculator;
 
 service CalcService {
-    rpc Multiply(CalcReq) returns (CalcRsp);
+    rpc calc(CalcReq) returns (CalcRsp);
 }
 
 message CalcReq {
-  int32 num1 = 1;
-  int32 num2 = 2;
+  int32 a = 1;
+  int32 b = 2;
 }
 
 message CalcRsp {

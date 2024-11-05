@@ -8,9 +8,9 @@ from concurrent import futures
 import grpc
 
 class CalcServicer(calc_pb2_grpc.CalcServiceServicer):
-    def Multiply(self, request, context):
-        print("num1:{}, num2:{}".format(request.num1, request.num2))
-        result = request.num1 * request.num2
+    def calc(self, request, context):
+        print("a:{}, b:{}".format(request.a, request.b))
+        result = request.a + request.b
         return calc_pb2.CalcRsp(result=result)
     
 def serve():

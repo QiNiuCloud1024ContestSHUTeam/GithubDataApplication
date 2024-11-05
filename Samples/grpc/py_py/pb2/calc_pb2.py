@@ -24,17 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ncalc.proto\x12\x04\x63\x61lc\"%\n\x07\x43\x61lcReq\x12\x0c\n\x04num1\x18\x01 \x01(\x05\x12\x0c\n\x04num2\x18\x02 \x01(\x05\"\x19\n\x07\x43\x61lcRsp\x12\x0e\n\x06result\x18\x01 \x01(\x05\x32\x37\n\x0b\x43\x61lcService\x12(\n\x08Multiply\x12\r.calc.CalcReq\x1a\r.calc.CalcRspb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ncalc.proto\x12\ncalculator\"\x1f\n\x07\x43\x61lcReq\x12\t\n\x01\x61\x18\x01 \x01(\x05\x12\t\n\x01\x62\x18\x02 \x01(\x05\"\x19\n\x07\x43\x61lcRsp\x12\x0e\n\x06result\x18\x01 \x01(\x05\x32?\n\x0b\x43\x61lcService\x12\x30\n\x04\x63\x61lc\x12\x13.calculator.CalcReq\x1a\x13.calculator.CalcRspb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'calc_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CALCREQ']._serialized_start=20
+  _globals['_CALCREQ']._serialized_start=26
   _globals['_CALCREQ']._serialized_end=57
   _globals['_CALCRSP']._serialized_start=59
   _globals['_CALCRSP']._serialized_end=84
   _globals['_CALCSERVICE']._serialized_start=86
-  _globals['_CALCSERVICE']._serialized_end=141
+  _globals['_CALCSERVICE']._serialized_end=149
 # @@protoc_insertion_point(module_scope)
