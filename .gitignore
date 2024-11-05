@@ -1,0 +1,6 @@
+config.yaml
+Repos/*
+.env
+__pycache__
+.vscode
+target
