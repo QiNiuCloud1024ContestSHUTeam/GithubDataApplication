@@ -4,3 +4,4 @@ Repos/*
 __pycache__
 .vscode
 target
+mysql.mysql-notebook
