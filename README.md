@@ -1,6 +1,6 @@
 # 一、需求分析
 
-1. ## 题目描述
+## 题目描述
 
 ### 基础功能
 
@@ -18,7 +18,7 @@
 - 评估信息自动整理
   - 对于开发者的个人信息，我们应用了大语言模型来对开发者繁多和种类不同的个人信息进行总结，最终结果将以一段文本的形式展示。
 
-1. ## 功能列表
+## 功能列表
 
 - 搜索领域或者用户返回相应的开发者排名
   - 搜索领域（任意字符串）
@@ -38,7 +38,7 @@
 
 # 二、产品设计（架构设计）
 
-1. ## TalentRank量化标准
+## TalentRank量化标准
 
 ### 仓库价值计算公式
 
@@ -50,29 +50,9 @@
 
 $$Score_i = \sum_{dim}  \frac{dim_i}{\sum_{j=1}^{10}dim_j}  \\ dim \in \{open\_issues,star,fork\}$$
 
-### 基础计算公式
+### 开发者能力计算公式
 
-Stars forks
-
-- 开发者能力评估指标计算公式：
-
-$$PA = \sum_{item}{\{W_{item}\times S(C_{item})\}},\\ item\in\{myItems,watch,fork,watch,pr,pr\_merged,pr\_review,follower\}$$
-
-其中PA表示开发者能力值，$$W_{item}$$表示因素item的权重系数，$$C_{item}$$表示因素item的数量，$$S(C_{factor})$$表示因素item的得分。
-
-- 影响因素的权重
-
-$$W_{myItem}=0.175,\\ W_{watch}=0.106 ,\\ W_{fork}=0.171 , \\ W_{watch}=0.087,\\ W_{pr}=0.071,\\ W_{pr_{merged}}=0.127 ,\\  W_{pr\_review}=0.144 ,\\ W_{follower}=0.120$$
-
-- 因素item的评分函数
-
-$$S_{myItems}= \begin{cases} 10,&myItems=0\\60,&myItems=1\\65,&myItems=2\\70,&myItems=3\\75,&myItems=4\\80,&myItems=5\\85,&myItems=6\\90,&myItems=7\\95,&myItems=8\\100,&myItems≥9 \end{cases} \ \ \ \ \ \ \ \ \ \  S_{watches}= \begin{cases} 10,&watches=0\\60,&watches=1\\65,&watches=2\\70,&watches=3\\75,&4≤watches≤6\\80,&7≤watches≤11\\85,&12≤watches≤24\\90,&25≤watches≤67\\95,&68≤watches≤299\\100,&watches≥300 \end{cases}$$
-
-$$S_{froks}= \begin{cases} 10,&forks=0\\60,&forks=1\\65,&2≤forks≤3\\70,&4≤forks≤9\\75,&10≤forks≤25\\80,&26≤forks≤70\\85,&71≤forks≤226\\90,&227≤forks≤1600\\95,&1601≤forks≤2999\\100,&forks≥3000 \end{cases} \ \ \ \ \ \  S_{parItems}= \begin{cases} 10,&parItems=0\\60,&parItems=1\\65,&parItems=2\\70,&parItems=3\\75,&parItems=4\\80,&parItems=5\\85,&parItems=6\\90,&parItems=7\\95,&parItems=8\\100,&parItems≥9 \end{cases} \\\\$$
-
-$$S_{pr}= \begin{cases} 10,&pr=0\\60,&pr=1\\65,&pr=2\\70,&3≤pr≤6\\75,&7≤pr≤12\\80,&13≤pr≤26\\85,&27≤pr≤57\\90,&58≤pr≤149\\95,&150≤pr≤512\\100,&pr≥513 \end{cases} \ \ \ \ \ \ \ \ \ \  S_{pr\_merged}= \begin{cases} 10,&pr\_merged=0\\60,&pr\_merged=1\\65,&pr\_merged=2\\70,&3≤pr\_merged≤5\\75,&6≤pr\_merged≤8\\80,&9≤pr\_merged≤15\\85,&16≤pr\_merged≤27\\90,&28≤pr\_merged≤51\\95,&52≤pr\_merged≤121\\100,&pr\_merged≥122 \end{cases} \\\\$$
-
-$$S_{pr\_review}= \begin{cases} 10,&pr\_review=0\\60,&pr\_review=1\\65,&2≤pr\_review≤3\\70,&4≤pr\_review≤5\\75,&6≤pr\_review≤8\\80,&9≤pr\_review≤14\\85,&15≤pr\_review≤22\\90,&23≤pr\_review≤38\\95,&39≤pr\_review≤68\\100,&pr\_review≥69 \end{cases} \ \ \ \ \ \ \ \ \ \  S_{followers}= \begin{cases} 10,&followers=0\\60,&followers=1\\65,&2≤followers≤3\\70,&4≤followers≤7\\75,&8≤followers≤14\\80,&15≤followers≤24\\85,&25≤followers≤43\\90,&44≤followers≤92\\95,&93≤followers≤351\\100,&followers≥352 \end{cases}$$
+- 我们认为，开发者的能力与其参与热门开源项目的参与度密切相关。如果一个开发者在某个热门项目中的提交次数位于前10，那么这个开发者将以自己的提交次数除以前10个贡献者的提交次数之和的比例获得这个热门项目的分数。在进行开发者排名时，在选定几个特定的领域后，开发者能力计算公式为各个开发者在这几个特定领域下的热门项目中得到的分数。
 
 ### nlp分类用户搜索字符串的实现方案
 
@@ -82,11 +62,7 @@ $$S_{pr\_review}= \begin{cases} 10,&pr\_review=0\\60,&pr\_review=1\\65,&2≤pr\_
 
 大模型会给每个开发者进行评估，对关键指标进行打分，并给出评语。
 
-### 最终的开发者能力计算公式
-
-$$Result=\sum_{item}{\{ W\times S \}}$$
-
-参考：
+#### 参考：
 
 ![img](docs/images/1730992047300-4.png)
 
@@ -100,7 +76,7 @@ $$Result=\sum_{item}{\{ W\times S \}}$$
 >   - https://github.com/taqui-786/GitEstimate
 > - https://github.com/OS-HUBU/DevValSys?tab=docs/images-ov-file
 
-1. ## nation推测
+## nation推测
 
 开发者国家和地区的推断基于一个朴素的猜想：
 
@@ -114,7 +90,7 @@ $$Result=\sum_{item}{\{ W\times S \}}$$
 
 最后采用了一个可信度非常低的方法：让大模型分析github主页、博客、公司、个人资料、教育背景、项目描述、语言使用、时间记录等方面的信息，推测国籍。
 
-1. ## 网站后端
+## 网站后端
 
 - 本地数据库架构图
 
@@ -144,7 +120,7 @@ $$Result=\sum_{item}{\{ W\times S \}}$$
   - 请求参数：q(String), Nation(String)
 - 点击某个开发者头像进入其github面板/能力值面板
 
-1. ## 网站前端
+## 网站前端
 
 #### Flutter安卓端
 
@@ -160,21 +136,63 @@ $$Result=\sum_{item}{\{ W\times S \}}$$
   - ![img](docs/images/1730992046771-3.png)
 - 需要设计个人信息主页page
 
-1. ## Python和Java通信
+## Python和Java通信
 
 对于在线搜索GitHub开发者或者领域，我们依然采用Python爬取数据。将python爬取的数据返回给Java可以使用http通信，也可以使用RPC。我们实现了让Python和Java通过grpc通信，但是在线搜索需要耗费较多的时间，最终这个功能并未上线。
 
-1. ## 前后端通信
+## 前后端通信
 
-1. ## 部署
+- listTopic
+  - url:http://1.95.59.208:8077/topic/listTopic?page=1&pageSize=16
+  - params
+    - page
+    - pageSize
+  - response
 
-# 三、需求列表
+- rankByStaticTopic
+  - url: http://1.95.59.208:8077/rank/rankByStaticTopic?page=1&pageSize=10&topicIds=1,2,3
+  - params
+    - page
+    - pageSize
+    - topicIds
+    - nation
 
-## 数据需求
+- rankBySearchString
+  - url: http://1.95.59.208:8077/rank/rankBySearchString?page=1&pageSize=10&q=nlp and llm language applied in python field&nation=China
+  - params
+    - page
+    - pageSize
+    - q
+    - nation
 
-- 爬取github官方所有的topics
-- 爬取每个topic下所有的repo
-- 从获取的数据中建立图网络
+- localUserSearh
+  - url: http://1.95.59.208:8077/user/aiSummary?html_url=https://github.com/justjavac%23gh-light-mode-only
+  - params
+    - page
+    - pageSize
+    - keyword
+- htmlurl ai总结
+  - url: http://1.95.59.208:8077/user/aiSummary?html_url=https://github.com/justjavac%23gh-light-mode-only
+  - params
+    - html_url
+
+## 程序运行说明
+
+将Springboot后端
+
+## 团队分工
+
+本项目的模块主要分为后端，算法，前端。本项目的主要分工如下：
+
+徐谟横：负责Springboot后端及grpc的应用，python数据爬取。
+
+陆诗雨：负责Springboot后端，数据库设计，python数据爬取及设计仓库价值计算公式和开发者能力计算公式以及相应数值计算的实现。
+
+张泽毅：负责前后端联调，flutter前端开发及python数据爬取。
+
+## 视频演示
+
+<video src="/doc/video.mp4" autoplay="false" controls="controls"></video>
 
 **其他参考资料**
 
