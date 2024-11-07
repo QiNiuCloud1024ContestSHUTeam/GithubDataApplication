@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc -I../proto --python_out=./pb2 --pyi_out=./pb2 --grpc_python_out=./pb2 calc.proto
