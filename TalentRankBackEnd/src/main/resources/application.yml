@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/TalentRank
+    username: root
+    password: ${password}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# 配置https端口及证书
+server:
+  port: 8077
+
+# 阿里云 SMS及OSS const变量
+aliyun:
+  sms:
+    SMSACCESSKEYID: ${ALIYUNSMSAK}
+    SMSACCESSKEYSECRET: ${ALIYUNSMSSK}
+    SMSENDPOINT: ${ALIYUNSMSENDPOINT}
+    SMSTEMPLATECODE: ${ALIYUNSMSTEMPLATECODE}
+    SMSSIGNNAME: ${ALIYUNSMSSIGNNAME}
+  oss:
+    endpoint: ${ALIYUNENDPOINT}
+    accessKeyId: ${ALIYUNAK}
+    accessKeySecret: ${ALIYUNSK}
+    bucketName: ${ALIYUNBUCKETNAME}
+
+# 字节豆包大模型api服务
+ticktok:
+  doubao:
+    apikey: ${DOUBAOAPIKEY}
+    model: ${DOUBAOMODEL}
+    baseurl: ${DOUBAOBASEURL}
+    systemcontent: ${DOUBAOSYSTEMCONTENT}
+    summarybotmodel: ${DOUBAOSUMMARYBOTMODEL}
+    botsystemcontent: ${DOUBAOBOTSYSTEMCONTENT}

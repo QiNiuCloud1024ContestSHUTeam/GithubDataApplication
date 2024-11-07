@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyulu.talentrank.mapper.TalentRankMapper">
+    <select id="rankByStaticTopic" resultType="com.shiyulu.talentrank.pojo.ScoreUser">
+        select sum(users_to_repo.miniscore) as topicScore,
+        users.login,users.id,users.node_id,users.avatar_url,users.gravatar_id,users.url,users.html_url,users.followers_url,
+        users.following_url,users.gists_url,users.starred_url,users.subscriptions_url,users.organizations_url,users.repos_url,
+        users.events_url,users.received_events_url,users.type,users.user_view_type,users.site_admin,users.name,users.company,
+        users.blog,users.location,users.email,users.hireable,users.bio,users.twitter_username,users.public_repos,users.public_gists,
+        users.followers,users.following,users.created_at,users.updated_at, users.nation
+        from users_to_repo inner join users on users_to_repo.userId = users.id
+        where users_to_repo.repoId in
+        (
+            select distinct (repoId) from repo_to_topics where repo_to_topics.topicId in
+                <foreach collection="topicIds" item="id" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+        )
+        <if test="nation != null">
+            and users.nation like concat('%',#{nation},'%')
+        </if>
+        group by users_to_repo.userId order by sum(users_to_repo.miniscore) desc
+    </select>
+
+    <select id="getReposByUserIdAndTopicIds" resultType="com.shiyulu.talentrank.pojo.Repo">
+        select
+        repo.id,repo.node_id,repo.name,repo.full_name,repo.private,repo.html_url,repo.description,repo.fork,
+        repo.url,repo.languages_url,repo.created_at,repo.updated_at,repo.pushed_at,repo.git_url,repo.ssh_url,
+        repo.clone_url,repo.homepage,repo.stargazers_count,repo.language,repo.has_issues,repo.forks_count,
+        repo.open_issues_count,repo.allow_forking,repo.visibility,repo.score
+        from repo where repo.id in
+        (
+            select users_to_repo.repoId from users_to_repo
+            where users_to_repo.userId = #{userId} and users_to_repo.repoId in
+            (
+                select distinct (repo_to_topics.repoId) from repo_to_topics where repo_to_topics.topicId in
+                    <foreach collection="topicIds" item="id" separator="," open="(" close=")">
+                        #{id}
+                    </foreach>
+            )
+        )
+    </select>
+</mapper>
