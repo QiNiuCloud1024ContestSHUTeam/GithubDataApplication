@@ -178,7 +178,11 @@ $$Score_i = \sum_{dim}  \frac{dim_i}{\sum_{j=1}^{10}dim_j}  \\ dim \in \{open\_i
 
 ## 程序运行说明
 
-将Springboot后端
+将Springboot后端打包成jar包后部署在服务器上，同时记得配置好使用的所有服务的相关环境变量。
+
+后端运行测试ip:1.95.59.208:8077
+
+前端打包成apk后运行在自己的手机上，前端已经设置好与后端的对接通信。
 
 ## 团队分工
 
@@ -192,7 +196,7 @@ $$Score_i = \sum_{dim}  \frac{dim_i}{\sum_{j=1}^{10}dim_j}  \\ dim \in \{open\_i
 
 ## 视频演示
 
-<video src="/doc/video.mp4" autoplay="false" controls="controls"></video>
+<video src="./3b9050530a2012570f7a8b9c571c72e7.mp4" autoplay="false" controls="controls"></video>
 
 **其他参考资料**
 
